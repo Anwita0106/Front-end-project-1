@@ -1,153 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RocketAir Clone</title>
-  <!-- GSAP CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RocketAir Clone Demo</title>
+  
+  <!-- GSAP CDN (for animations) -->
   <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+
+  <!-- Inline CSS -->
   <style>
-    /* Reset & General Styles */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
+    /* RESET & GLOBAL STYLES */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
     }
-    /* Header & Navbar */
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background-color: #000; 
+      color: #fff;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none; 
+      color: inherit;
+    }
+
+    /* NAVBAR */
     header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px 30px;
       position: fixed;
       top: 0;
       width: 100%;
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
+      padding: 20px 40px;
+      z-index: 999;
     }
     .logo {
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: bold;
+      letter-spacing: 1px;
     }
-    .nav-links {
+    nav ul {
       list-style: none;
-      margin: 0;
-      padding: 0;
       display: flex;
+      gap: 30px;
     }
-    .nav-links li {
-      margin: 0 15px;
+    nav li {
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
     }
-    .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 18px;
-    }
-    /* Hero Section */
+
+    /* HERO SECTION */
     .hero {
-      margin-top: 70px; /* Offset for fixed header */
-      height: 100vh;
-      background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding: 20px;
+      align-items: flex-start;
+      padding: 0 40px;
+      height: 100vh;
+      background: url("https://via.placeholder.com/1600x900") no-repeat center/cover;
+      margin-top: 80px; /* offset for fixed header */
+      position: relative;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      background: linear-gradient(to bottom right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
     }
     .hero h1 {
-      font-size: 48px;
-      margin: 0;
-      opacity: 0;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      font-weight: 700;
     }
     .hero p {
-      font-size: 20px;
-      margin: 15px 0;
-      opacity: 0;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
     }
-    .cta-btn {
-      padding: 12px 25px;
-      font-size: 18px;
-      background: orangered;
-      color: white;
+    .cta-button {
+      background: #ff5100;
+      padding: 15px 25px;
       border: none;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
-    .cta-btn:hover {
-      background: red;
+    .cta-button:hover {
+      background: #e64500;
     }
-    /* Dynamic Content Section */
-    .dynamic-content {
-      padding: 50px 20px;
+
+    /* FEATURED SECTION */
+    .featured {
+      background: #111;
+      padding: 80px 40px;
+      text-align: left;
+    }
+    .featured h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+    .project-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
       background: #222;
-    }
-    /* Footer */
-    footer {
-      background: rgba(0, 0, 0, 0.9);
       padding: 20px;
-      position: fixed;
-      bottom: 0;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .card img {
       width: 100%;
-      z-index: 1000;
+      height: auto;
+      border-radius: 3px;
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.8;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 40px;
+    }
+    footer p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      header {
+        padding: 15px 20px;
+      }
+      .nav-links {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header & Navbar -->
+  <!-- NAVBAR -->
   <header>
     <div class="logo">RocketAir</div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#featured">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#footer">Contact</a></li>
+      </ul>
+    </nav>
   </header>
-  
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Welcome to RocketAir</h1>
-    <p>Creative digital experiences that inspire.</p>
-    <button class="cta-btn">Explore More</button>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Designing Digital Experiences<br>That Shape the Future</h1>
+      <p>
+        We’re a design and technology studio creating impactful digital products and brands
+        for forward-thinking companies.
+      </p>
+      <button class="cta-button" id="explore-btn">Explore Our Work</button>
+    </div>
   </section>
-  
-  <!-- Dynamic Content Section -->
-  <section class="dynamic-content">
-    <h2>Latest Updates</h2>
-    <div id="api-content">Loading...</div>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="featured" id="featured">
+    <h2>Featured Projects</h2>
+    <div class="project-cards">
+      <div class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 1">
+        <h3>Project One</h3>
+        <p>Revolutionary web platform that redefines user engagement and brand identity.</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 2">
+        <h3>Project Two</h3>
+        <p>Modern e-commerce experience focusing on seamless shopping and bold design.</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Project 3">
+        <h3>Project Three</h3>
+        <p>Mobile app that transforms everyday tasks into delightful user experiences.</p>
+      </div>
+    </div>
   </section>
-  
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 RocketAir Clone. All rights reserved.</p>
+
+  <!-- ABOUT SECTION (Optional) -->
+  <section class="featured" id="about">
+    <h2>About RocketAir</h2>
+    <p style="max-width: 700px; margin: 0 auto;">
+      We’re a diverse team of strategists, designers, and developers who thrive on innovation.
+      Our mission is to help companies discover their digital edge and connect with audiences
+      in impactful ways.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <p>&copy; 2025 RocketAir Clone. All Rights Reserved.</p>
   </footer>
-  
-  <!-- JavaScript -->
+
+  <!-- Inline JavaScript -->
   <script>
+    // Wait for DOM
     document.addEventListener("DOMContentLoaded", function() {
-      // Animate header and hero elements using GSAP
-      gsap.from("header", { duration: 1, y: -50, opacity: 0, ease: "power2.out" });
-      gsap.to(".hero h1", { duration: 1, opacity: 1, y: -20, ease: "power2.out", delay: 0.5 });
-      gsap.to(".hero p", { duration: 1, opacity: 1, y: -20, ease: "power2.out", delay: 0.7 });
-      
-      // Add click event to CTA button
-      document.querySelector(".cta-btn").addEventListener("click", function() {
-        alert("Explore RocketAir's digital experience!");
+      // GSAP Animations
+      gsap.from("header", { 
+        duration: 1, 
+        y: -80, 
+        opacity: 0, 
+        ease: "power2.out" 
+      });
+      gsap.from(".hero-content h1", {
+        duration: 1.2,
+        x: -50,
+        opacity: 0,
+        delay: 0.3,
+        ease: "power2.out"
+      });
+      gsap.from(".hero-content p", {
+        duration: 1,
+        x: 50,
+        opacity: 0,
+        delay: 0.6,
+        ease: "power2.out"
+      });
+      gsap.from(".cta-button", {
+        duration: 1,
+        scale: 0.8,
+        opacity: 0,
+        delay: 1,
+        ease: "bounce.out"
       });
       
-      // Fetch and display dynamic content from a dummy API
-      fetch("https://jsonplaceholder.typicode.com/posts?_limit=3")
-        .then(response => response.json())
-        .then(data => {
-          const contentDiv = document.getElementById("api-content");
-          contentDiv.innerHTML = data.map(post =>
-            <p><strong>${post.title}</strong>: ${post.body}</p>
-          ).join("");
-        })
-        .catch(error => console.error("Error fetching API data:", error));
+      // Animate featured section on scroll
+      gsap.from(".featured h2", {
+        scrollTrigger: ".featured", // requires ScrollTrigger plugin if you want advanced triggers
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        ease: "power2.out"
+      });
+      // (If you want advanced scroll-based animations, you'd add the GSAP ScrollTrigger plugin.)
+
+      // Button click
+      const exploreBtn = document.getElementById("explore-btn");
+      exploreBtn.addEventListener("click", function() {
+        // Smooth scroll to Featured section
+        document.getElementById("featured").scrollIntoView({ behavior: "smooth" });
+      });
     });
   </script>
 </body>
