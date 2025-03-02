@@ -38,7 +38,6 @@
     </footer>
 </body>
 </html>
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -47,8 +46,6 @@ body {
     color: #fff;
     text-align: center;
 }
-
-/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -64,23 +61,18 @@ body {
     font-size: 24px;
     font-weight: bold;
 }
-
 .nav-links {
     list-style: none;
     display: flex;
 }
-
 .nav-links li {
     margin: 0 15px;
 }
-
 .nav-links a {
     text-decoration: none;
     color: white;
     font-size: 18px;
 }
-
-/* Hero Section */
 .hero {
     height: 100vh;
     display: flex;
@@ -89,7 +81,6 @@ body {
     align-items: center;
     background: url('assets/hero-bg.jpg') no-repeat center center/cover;
 }
-
 .hero h1 {
     font-size: 48px;
     animation: fadeIn 2s ease-in-out;
@@ -99,7 +90,6 @@ body {
     font-size: 20px;
     margin: 15px 0;
 }
-
 .cta-btn {
     padding: 12px 25px;
     font-size: 18px;
@@ -109,12 +99,9 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
-
 .cta-btn:hover {
     background: red;
 }
-
-/* Footer */
 footer {
     background: rgba(0, 0, 0, 0.9);
     padding: 20px;
@@ -122,8 +109,6 @@ footer {
     width: 100%;
     bottom: 0;
 }
-
-/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
